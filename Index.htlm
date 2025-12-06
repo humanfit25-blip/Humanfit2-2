@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUMANFITS - Semana 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --negro-profundo: #0a0014;
+            --negro-medio: #150028;
+            --morado-oscuro: #2d0a4e;
+            --morado-medio: #6b2fb5;
+            --morado-brillante: #a855f7;
+            --morado-neon: #d946ef;
+            --cyan-brillante: #06b6d4;
+            --verde-acido: #10b981;
+            --texto-blanco: #f0f0f0;
+            --texto-gris: #b0b0b0;
+        }
+
+```
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Exo 2', sans-serif;
+        background: linear-gradient(180deg, var(--negro-profundo) 0%, var(--negro-medio) 50%, var(--morado-oscuro) 100%);
+        background-attachment: fixed;
+        color: var(--texto-blanco);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    /* Textura de fondo */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+            repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(168, 85, 247, 0.02) 2px, rgba(168, 85, 247, 0.02) 4px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Header */
+    header {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, rgba(45, 10, 78, 0.4) 0%, rgba(107, 47, 181, 0.2) 100%);
+        border: 2px solid var(--morado-brillante);
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 60px rgba(168, 85, 247, 0.3), inset 0 0 60px rgba(168, 85, 247, 0.1);
+    }
+
+    header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(168, 85, 247, 0.05) 3px,
+            rgba(168, 85, 247, 0.05) 6px
+        );
+        animation: scanlines 8s linear infinite;
+    }
+
+    @keyframes scanlines {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(50px); }
+    }
+
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 4.5em;
+        font-weight: 900;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, var(--morado-neon) 0%, var(--cyan-brillante) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 15px;
+        position: relative;
+        text-shadow: 0 0 40px rgba(217, 70, 239, 0.6);
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from { filter: drop-shadow(0 0 20px rgba(217, 70, 239, 0.4)); }
+        to { filter: drop-shadow(0 0 40px rgba(217, 70, 239, 0.8)); }
+    }
+
+    .week-label {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.8em;
+        font-weight: 600;
+        letter-spacing: 4px;
+        color: var(--cyan-brillante);
+        text-transform: uppercase;
+        position: relative;
+        display: inline-block;
+        padding: 10px 30px;
+        border: 2px solid var(--cyan-brillante);
+        border-radius: 50px;
+        background: rgba(6, 182, 212, 0.1);
+        box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Sesiones */
+    .session {
+        margin-bottom: 80px;
+        padding: 40px;
+        background: linear-gradient(145deg, rgba(21, 0, 40, 0.6) 0%, rgba(45, 10, 78, 0.4) 100%);
+        border-left: 5px solid var(--morado-brillante);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.5),
+            0 0 0 1px rgba(168, 85, 247, 0.2);
+        animation: slideIn 0.8s ease backwards;
+    }
+
+    .session:nth-child(1) { animation-delay: 0.1s; }
+    .session:nth-child(2) { animation-delay: 0.2s; }
+    .session:nth-child(3) { animation-delay: 0.3s; }
+    .session:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .session::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(168, 85, 247, 0.05) 50%, 
+            transparent 100%);
+        animation: shine 3s ease-in-out infinite;
+    }
+
+    @keyframes shine {
+        0%, 100% { transform: translateX(-100%); }
+        50% { transform: translateX(100%); }
+    }
+
+    .session-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 35px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid var(--morado-medio);
+        position: relative;
+    }
+
+    .session-number {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 3em;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--morado-neon) 0%, var(--cyan-brillante) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        min-width: 80px;
+    }
+
+    .session-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2em;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--morado-brillante);
+        flex: 1;
+    }
+
+    /* Bloques de contenido */
+    .block {
+        margin-bottom: 30px;
+        padding: 25px;
+        background: rgba(10, 0, 20, 0.4);
+        border-left: 3px solid;
+        border-radius: 10px;
+        position: relative;
+    }
+
+    .block.warmup {
+        border-left-color: var(--verde-acido);
+        box-shadow: -5px 0 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .block.halterofilia,
+    .block.strength,
+    .block.skill {
+        border-left-color: var(--morado-neon);
+        box-shadow: -5px 0 20px rgba(217, 70, 239, 0.2);
+    }
+
+    .block.metcon,
+    .block.endurance {
+        border-left-color: var(--cyan-brillante);
+        box-shadow: -5px 0 20px rgba(6, 182, 212, 0.2);
+    }
+
+    .block.gymnastics,
+    .block.accessory,
+    .block.finisher,
+    .block.core {
+        border-left-color: var(--morado-medio);
+        box-shadow: -5px 0 20px rgba(107, 47, 181, 0.2);
+    }
+
+    .block.cooldown {
+        border-left-color: var(--texto-gris);
+        box-shadow: -5px 0 20px rgba(176, 176, 176, 0.1);
+    }
+
+    .block-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5em;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .block-title::before {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        box-shadow: 0 0 15px currentColor;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    .block.warmup .block-title { color: var(--verde-acido); }
+    .block.halterofilia .block-title,
+    .block.strength .block-title,
+    .block.skill .block-title { color: var(--morado-neon); }
+    .block.metcon .block-title,
+    .block.endurance .block-title { color: var(--cyan-brillante); }
+    .block.gymnastics .block-title,
+    .block.accessory .block-title,
+    .block.finisher .block-title,
+    .block.core .block-title { color: var(--morado-medio); }
+    .block.cooldown .block-title { color: var(--texto-gris); }
+
+    .time-badge {
+        font-size: 0.65em;
+        padding: 4px 12px;
+        background: rgba(168, 85, 247, 0.2);
+        border: 1px solid currentColor;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+
+    .block-content {
+        color: var(--texto-blanco);
+        line-height: 1.9;
+        font-size: 1.05em;
+    }
+
+    .block-content strong {
+        color: var(--morado-brillante);
+        font-weight: 600;
+    }
+
+    .workout-item {
+        margin: 12px 0;
+        padding-left: 25px;
+        position: relative;
+    }
+
+    .workout-item::before {
+        content: '▸';
+        position: absolute;
+        left: 0;
+        color: var(--morado-brillante);
+        font-size: 1.2em;
+    }
+
+    .rounds-label {
+        font-weight: 700;
+        color: var(--cyan-brillante);
+        font-size: 1.1em;
+        margin: 15px 0 10px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .exercise-group {
+        margin: 15px 0;
+        padding: 15px;
+        background: rgba(168, 85, 247, 0.05);
+        border-radius: 8px;
+        border-left: 2px solid var(--morado-medio);
+    }
+
+    .set-label {
+        font-weight: 700;
+        color: var(--morado-neon);
+        margin: 10px 0 5px 0;
+        text-transform: uppercase;
+        font-size: 0.95em;
+        letter-spacing: 1px;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--morado-neon) 0%, var(--cyan-brillante) 100%);
+        z-index: 1000;
+        box-shadow: 0 0 20px var(--morado-neon);
+        transition: width 0.1s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2.5em;
+            letter-spacing: 3px;
+        }
+
+        .week-label {
+            font-size: 1.2em;
+        }
+
+        .session {
+            padding: 25px;
+        }
+
+        .session-number {
+            font-size: 2em;
+            min-width: 50px;
+        }
+
+        .session-title {
+            font-size: 1.3em;
+        }
+
+        .block {
+            padding: 20px;
+        }
+
+        .block-title {
+            font-size: 1.2em;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+```
+<div class="container">
+    <header>
+        <h1>HUMANFITS</h1>
+        <div class="week-label">Semana 2</div>
+    </header>
+
+    <!-- SESIÓN 5 -->
+    <div class="session">
+        <div class="session-header">
+            <div class="session-number">05</div>
+            <div class="session-title">Halterofilia + Short MetCon</div>
+        </div>
+
+        <div class="block warmup">
+            <div class="block-title">
+                A) Warm-up
+                <span class="time-badge">8'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">3 Rounds:</div>
+                <div class="workout-item">8 PVC Pass-Throughs</div>
+                <div class="workout-item">6 Overhead Squats (empty bar)</div>
+                <div class="workout-item">4 Muscle Cleans</div>
+            </div>
+        </div>
+
+        <div class="block halterofilia">
+            <div class="block-title">
+                B) Halterofilia
+                <span class="time-badge">28'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">Every minute on the minute For 10':</div>
+                <div class="workout-item">1 Squat Clean <strong>7/10 RPE</strong></div>
+                
+                <div class="rounds-label" style="margin-top: 20px;">Then: Every 2' for 12':</div>
+                <div class="workout-item">3 Push Press <strong>7/10 RPE</strong> +</div>
+                <div class="workout-item">6/6 Bent Over Rows (moderate DB)</div>
+            </div>
+        </div>
+
+        <div class="block metcon">
+            <div class="block-title">
+                C) MetCon
+                <span class="time-badge">16'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">3 Rounds For Time (Cap 12'):</div>
+                <div class="workout-item">12 Thrusters (30/20kg)</div>
+                <div class="workout-item">9 Burpees Over Bar</div>
+                <div class="workout-item">30 Single Unders / 30 Mountain Climbers</div>
+            </div>
+        </div>
+
+        <div class="block cooldown">
+            <div class="block-title">
+                D) Cool Down
+                <span class="time-badge">8'</span>
+            </div>
+            <div class="block-content">
+                <div class="workout-item">Couch Stretch 90" each leg</div>
+                <div class="workout-item">Downward Dog 90"</div>
+                <div class="workout-item">Wrist Stretches</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SESIÓN 6 -->
+    <div class="session">
+        <div class="session-header">
+            <div class="session-number">06</div>
+            <div class="session-title">Endurance + Core</div>
+        </div>
+
+        <div class="block warmup">
+            <div class="block-title">
+                A) Warm-up
+                <span class="time-badge">8'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">2 Rounds:</div>
+                <div class="workout-item">100 mts Easy Run</div>
+                <div class="workout-item">10 Jumping Jacks</div>
+                <div class="workout-item">8 Mountain Climbers</div>
+                <div class="workout-item">6 Air Squats</div>
+            </div>
+        </div>
+
+        <div class="block endurance">
+            <div class="block-title">
+                B) Endurance Work
+                <span class="time-badge">35'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">AMRAP 30':</div>
+                <div class="workout-item">200 mts Run / 400 mts BikeErg</div>
+                <div class="workout-item">10/10 KB Snatches (16/12kg)</div>
+                <div class="workout-item">15 Goblet Squats (16/12kg)</div>
+                <div class="workout-item">10 Push-Ups</div>
+                <div class="workout-item">5 Burpees</div>
+            </div>
+        </div>
+
+        <div class="block core">
+            <div class="block-title">
+                C) Core Finisher
+                <span class="time-badge">10'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">3 Rounds:</div>
+                <div class="workout-item">20 Sit-Ups</div>
+                <div class="workout-item">15 V-Ups <em>(scale: Tuck-Ups)</em></div>
+                <div class="workout-item">30" Hollow Hold</div>
+            </div>
+        </div>
+
+        <div class="block cooldown">
+            <div class="block-title">
+                D) Cool Down
+                <span class="time-badge">7'</span>
+            </div>
+            <div class="block-content">
+                <div class="workout-item">Pigeon Pose</div>
+                <div class="workout-item">Child's Pose</div>
+                <div class="workout-item">Spinal Twists</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SESIÓN 7 -->
+    <div class="session">
+        <div class="session-header">
+            <div class="session-number">07</div>
+            <div class="session-title">Halterofilia + Gymnastics Progression</div>
+        </div>
+
+        <div class="block warmup">
+            <div class="block-title">
+                A) Warm-up
+                <span class="time-badge">10'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">3 Rounds:</div>
+                <div class="workout-item">5 Empty Bar Snatches</div>
+                <div class="workout-item">8 Overhead Squats</div>
+                <div class="workout-item">10 Ring Rows</div>
+            </div>
+        </div>
+
+        <div class="block halterofilia">
+            <div class="block-title">
+                B) Halterofilia
+                <span class="time-badge">22'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">Every 90" for 15' complete:</div>
+                <div class="workout-item">1 Power Clean + 1 Hang Power Clean + 1 Front Squat (build to moderate)</div>
+                
+                <div class="rounds-label" style="margin-top: 20px;">Then: 2 Sets of 8 Back Squats <strong>6/10 RPE</strong></div>
+            </div>
+        </div>
+
+        <div class="block gymnastics">
+            <div class="block-title">
+                C) Gymnastics Work
+                <span class="time-badge">18'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">Every 3' for 15' (5 Rounds):</div>
+                <div class="workout-item">5 Strict Pull-Ups <em>(scale: Banded or Ring Rows)</em></div>
+                <div class="workout-item">8 Pike Push-Ups <em>(scale: Box Pike)</em></div>
+                <div class="workout-item">12 Toes-to-Bar <em>(scale: Knee Raises)</em></div>
+            </div>
+        </div>
+
+        <div class="block cooldown">
+            <div class="block-title">
+                D) Cool Down
+                <span class="time-badge">10'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">For Quality:</div>
+                <div class="exercise-group">
+                    <div class="rounds-label" style="margin-top: 0;">2 Rounds:</div>
+                    <div class="workout-item">10 Scap Retractions</div>
+                    <div class="workout-item">15 Band Pull-Aparts</div>
+                    <div class="workout-item">20 Cat-Cows</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SESIÓN 8 -->
+    <div class="session">
+        <div class="session-header">
+            <div class="session-number">08</div>
+            <div class="session-title">Full Body MetCon</div>
+        </div>
+
+        <div class="block warmup">
+            <div class="block-title">
+                A) Warm-up
+                <span class="time-badge">8'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">AMRAP 6':</div>
+                <div class="workout-item">10 Air Squats</div>
+                <div class="workout-item">8 Push-Ups</div>
+                <div class="workout-item">6 Ring Rows</div>
+                <div class="workout-item">4 Burpees</div>
+            </div>
+        </div>
+
+        <div class="block skill">
+            <div class="block-title">
+                B) Skill Work
+                <span class="time-badge">12'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">Practice:</div>
+                <div class="exercise-group">
+                    <div class="rounds-label" style="margin-top: 0;">3 Sets:</div>
+                    <div class="workout-item">5 Muscle Cleans (light)</div>
+                    <div class="workout-item">5 Handstand Shoulder Taps (wall facing)</div>
+                    <div class="workout-item">10 Hollow Rocks</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block metcon">
+            <div class="block-title">
+                C) MetCon
+                <span class="time-badge">30'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">For Time:</div>
+                <div class="exercise-group">
+                    <div class="rounds-label" style="margin-top: 0;">50-40-30-20-10</div>
+                    <div class="workout-item">Single Unders</div>
+                </div>
+
+                <div class="exercise-group">
+                    <div class="rounds-label" style="margin-top: 0;">25-20-15-10-5</div>
+                    <div class="workout-item">Wall Balls (9/6kg)</div>
+                </div>
+
+                <div class="rounds-label" style="margin-top: 20px;">Every 2 rounds complete:</div>
+                <div class="workout-item">10 2x DB Hang Power Cleans (15/10kg each)</div>
+            </div>
+        </div>
+
+        <div class="block cooldown">
+            <div class="block-title">
+                D) Cool Down
+                <span class="time-badge">10'</span>
+            </div>
+            <div class="block-content">
+                <div class="rounds-label">3 Rounds:</div>
+                <div class="workout-item">12 Banded Good Mornings</div>
+                <div class="workout-item">10 Lying Scorpions</div>
+                <div class="workout-item">20" Child's Pose</div>
+            </div>
+        </div>
+    </div>
+    <!-- Mensaje Motivacional Final -->
+    <div class="motivational-message">
+        <div class="flame-text">
+            Hay una persona orgullosa de ti, por esta decisión…<br>
+            <span class="mirror-text">la tienes frente al espejo</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .motivational-message {
+        margin: 80px 0 60px 0;
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        background: linear-gradient(135deg, 
+            rgba(255, 94, 0, 0.1) 0%, 
+            rgba(255, 17, 0, 0.15) 50%, 
+            rgba(255, 140, 0, 0.1) 100%);
+        border-radius: 20px;
+        border: 2px solid #ff5e00;
+        overflow: hidden;
+        box-shadow: 
+            0 0 60px rgba(255, 94, 0, 0.4),
+            inset 0 0 60px rgba(255, 94, 0, 0.1);
+    }
+
+    .motivational-message::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: 
+            radial-gradient(circle, rgba(255, 140, 0, 0.3) 0%, transparent 60%),
+            radial-gradient(circle, rgba(255, 17, 0, 0.2) 0%, transparent 60%);
+        animation: flameMove 4s ease-in-out infinite;
+    }
+
+    @keyframes flameMove {
+        0%, 100% { 
+            transform: translate(-25%, -25%) scale(1);
+            opacity: 0.8;
+        }
+        50% { 
+            transform: translate(-20%, -20%) scale(1.1);
+            opacity: 1;
+        }
+    }
+
+    .flame-text {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.2em;
+        font-weight: 700;
+        letter-spacing: 2px;
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+        color: #fff;
+        text-shadow: 
+            0 0 10px rgba(255, 235, 59, 1),
+            0 0 20px rgba(255, 152, 0, 0.9),
+            0 0 30px rgba(255, 94, 0, 0.8),
+            0 0 40px rgba(244, 67, 54, 0.7),
+            0 2px 4px rgba(0, 0, 0, 0.8);
+        animation: flameFlicker 3s ease-in-out infinite;
+    }
+
+    @keyframes flameFlicker {
+        0%, 100% { 
+            text-shadow: 
+                0 0 10px rgba(255, 235, 59, 1),
+                0 0 20px rgba(255, 152, 0, 0.9),
+                0 0 30px rgba(255, 94, 0, 0.8),
+                0 0 40px rgba(244, 67, 54, 0.7),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        25% { 
+            text-shadow: 
+                0 0 15px rgba(255, 235, 59, 1),
+                0 0 25px rgba(255, 152, 0, 1),
+                0 0 35px rgba(255, 94, 0, 0.9),
+                0 0 45px rgba(244, 67, 54, 0.8),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        50% { 
+            text-shadow: 
+                0 0 12px rgba(255, 235, 59, 1),
+                0 0 22px rgba(255, 152, 0, 0.95),
+                0 0 32px rgba(255, 94, 0, 0.85),
+                0 0 42px rgba(244, 67, 54, 0.75),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        75% { 
+            text-shadow: 
+                0 0 18px rgba(255, 235, 59, 1),
+                0 0 28px rgba(255, 152, 0, 1),
+                0 0 38px rgba(255, 94, 0, 1),
+                0 0 48px rgba(244, 67, 54, 0.9),
+                0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .mirror-text {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 1.3em;
+        font-weight: 900;
+        color: #ffeb3b;
+        text-shadow: 
+            0 0 15px rgba(255, 235, 59, 1),
+            0 0 25px rgba(255, 193, 7, 1),
+            0 0 35px rgba(255, 152, 0, 0.9),
+            0 0 45px rgba(255, 94, 0, 0.8),
+            0 3px 6px rgba(0, 0, 0, 0.9);
+        animation: mirrorPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes mirrorPulse {
+        0%, 100% { 
+            transform: scale(1);
+            text-shadow: 
+                0 0 15px rgba(255, 235, 59, 1),
+                0 0 25px rgba(255, 193, 7, 1),
+                0 0 35px rgba(255, 152, 0, 0.9),
+                0 0 45px rgba(255, 94, 0, 0.8),
+                0 3px 6px rgba(0, 0, 0, 0.9);
+        }
+        50% { 
+            transform: scale(1.05);
+            text-shadow: 
+                0 0 20px rgba(255, 235, 59, 1),
+                0 0 35px rgba(255, 193, 7, 1),
+                0 0 50px rgba(255, 152, 0, 1),
+                0 0 65px rgba(255, 94, 0, 0.9),
+                0 3px 6px rgba(0, 0, 0, 0.9);
+        }
+    }
+
+    /* Partículas de fuego */
+    .motivational-message::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(255, 94, 0, 0.4) 0%, transparent 2%),
+            radial-gradient(circle at 40% 90%, rgba(255, 152, 0, 0.3) 0%, transparent 3%),
+            radial-gradient(circle at 60% 85%, rgba(255, 94, 0, 0.5) 0%, transparent 2%),
+            radial-gradient(circle at 80% 90%, rgba(255, 152, 0, 0.4) 0%, transparent 2.5%),
+            radial-gradient(circle at 30% 95%, rgba(255, 94, 0, 0.3) 0%, transparent 2%);
+        animation: sparkles 3s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    @keyframes sparkles {
+        0%, 100% { 
+            opacity: 0.6;
+            transform: translateY(0);
+        }
+        50% { 
+            opacity: 1;
+            transform: translateY(-10px);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .motivational-message {
+            padding: 40px 20px;
+            margin: 60px 0 40px 0;
+        }
+
+        .flame-text {
+            font-size: 1.4em;
+        }
+
+        .mirror-text {
+            font-size: 1.2em;
+        }
+    }
+</style>
+
+<script>
+    // Scroll progress indicator
+    window.addEventListener('scroll', () => {
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+        scrollIndicator.style.width = scrollPercentage + '%';
+    });
+</script>
+```
+
+</body>
+</html>
